@@ -14,11 +14,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import java.time.LocalDateTime;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private final Model model = new Model();
     private EntryAdapter adapter = new EntryAdapter(model);
+
+    MainActivity() {
+        model.add(
+            LocalDateTime.of(2019, 8, 3, 10, 15),
+            LocalDateTime.of(2019, 8, 3, 20, 15));
+        model.add(
+                LocalDateTime.of(2019, 8, 3, 3, 15),
+                LocalDateTime.of(2019, 8, 3, 20, 15));
+        model.add(
+                LocalDateTime.of(2019, 8, 3, 3, 15),
+                LocalDateTime.of(2019, 8, 3, 8, 15));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

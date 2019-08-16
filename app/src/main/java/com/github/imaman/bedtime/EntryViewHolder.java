@@ -14,6 +14,6 @@ class EntryViewHolder extends RecyclerView.ViewHolder {
 
     public void assign(SleepEntry se) {
         TextView textView = itemView.findViewById(R.id.entryText);
-        textView.setText("p=" + se);
+        textView.setText(se.toString());
     }
 }
