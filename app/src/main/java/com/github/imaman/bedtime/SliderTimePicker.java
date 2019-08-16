@@ -7,6 +7,10 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class SliderTimePicker extends RelativeLayout {
 
     private static final int MAX = 96;
@@ -19,17 +23,14 @@ public class SliderTimePicker extends RelativeLayout {
         inflater.inflate(R.layout.slidertimepicker, this, true);
 
 
-        final TextView text = (TextView) this.findViewById(R.id.text);
-        SeekBar from = (SeekBar) this.findViewById(R.id.seekBar);
+        final TextView text = this.findViewById(R.id.text);
+        SeekBar from = this.findViewById(R.id.seekBar);
 
         from.setMax(MAX - 1);
         from.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                int minutes = (i * MINUTES_IN_DAY) / MAX;
-                int hh = minutes / 60;
-                int mm = minutes % 60;
-                text.setText(String.format("%02d:%02d", hh, mm));
+                text.setText(String.format("%02d:%02d", hours(), minutes()));
             }
 
             @Override
@@ -41,5 +42,23 @@ public class SliderTimePicker extends RelativeLayout {
 
 
 
+    }
+
+    private int hours() {
+        SeekBar sb = this.findViewById(R.id.seekBar);
+        int minutes = (sb.getProgress() * MINUTES_IN_DAY) / MAX;
+        return minutes / 60;
+    }
+
+    private int minutes() {
+        SeekBar sb = this.findViewById(R.id.seekBar);
+        int minutes = (sb.getProgress() * MINUTES_IN_DAY) / MAX;
+        return minutes % 60;
+    }
+
+    public LocalDateTime getInstant() {
+        LocalDateTime sod = LocalDate.now().atStartOfDay();
+        LocalDateTime ret = sod.plusHours(hours()).plusMinutes(minutes());
+        return ret;
     }
 }
