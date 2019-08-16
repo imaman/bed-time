@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp">
+
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="from:"/>
+
+    <com.github.imaman.bedtime.SliderTimePicker
+        android:id="@+id/startedAt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/from"
+        />
+
+
+    <TextView
+        android:id="@+id/until"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="until:"
+        android:layout_below="@id/startedAt"/>
+
+    <com.github.imaman.bedtime.SliderTimePicker
+        android:id="@+id/endedAt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/until"
+        />
+
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_below="@id/endedAt"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="OK" />
+    <Button
+        android:id="@+id/dialogButtonCancel"
+        android:layout_toRightOf="@id/dialogButtonOK"
+        android:layout_below="@id/endedAt"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Cancel" />
+
+
+</RelativeLayout>
