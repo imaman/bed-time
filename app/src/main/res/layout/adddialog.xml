@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:text="from:"/>
 
-    <com.github.imaman.bedtime.SliderTimePicker
+    <com.github.imaman.bedtime.SliderTimePickerView
         android:id="@+id/startedAt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:text="until:"
         android:layout_below="@id/startedAt"/>
 
-    <com.github.imaman.bedtime.SliderTimePicker
+    <com.github.imaman.bedtime.SliderTimePickerView
         android:id="@+id/endedAt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SliderTimePicker startedAt = dialog.findViewById(R.id.startedAt);
-                SliderTimePicker endedAt = dialog.findViewById(R.id.endedAt);
+                SliderTimePickerView startedAt = dialog.findViewById(R.id.startedAt);
+                SliderTimePickerView endedAt = dialog.findViewById(R.id.endedAt);
                 model.add(startedAt.getInstant(), endedAt.getInstant());
                 adapter.notifyItemInserted(0);
                 dialog.dismiss();

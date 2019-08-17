@@ -11,12 +11,12 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class SliderTimePicker extends RelativeLayout {
+public class SliderTimePickerView extends RelativeLayout {
 
     private static final int MAX = 96;
     private static final int MINUTES_IN_DAY = 1440;
 
-    public SliderTimePicker(Context context, AttributeSet as) {
+    public SliderTimePickerView(Context context, AttributeSet as) {
         super(context, as);
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
