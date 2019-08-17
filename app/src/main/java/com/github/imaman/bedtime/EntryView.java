@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 public class EntryView extends LinearLayout {
-    
     public EntryView(Context context) {
         super(context);
 
