@@ -6,13 +6,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GestureDetectorCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private final Model model = new Model();
     private EntryAdapter adapter = new EntryAdapter(model);
-    private GestureDetectorCompat mDetector;
 
     MainActivity() {
         model.add(
@@ -68,34 +63,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(adapter);
-
-        
-        mDetector = new GestureDetectorCompat(this, new MyGestureListener());
-
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return mDetector.onTouchEvent(motionEvent);
-            }
-        });
-
-
-//        GestureDetector.OnDoubleTapListener
-
     }
 
-    static class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
-        @Override
-        public boolean onDown(MotionEvent e) {
-            return super.onDown(e);
-        }
-
-        @Override
-        public boolean onDoubleTap(MotionEvent e) {
-            Log.d("GESTURE", "dt");
-            return super.onDoubleTap(e);
-        }
-    }
 
     private void addData() {
         final Dialog dialog = new Dialog(this, R.style.Theme_AppCompat_DayNight_DarkActionBar);
