@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private final Model model = new Model();
     private EntryAdapter adapter = new EntryAdapter(model);
+    private final EditDialog editDialog = new EditDialog(model, this, adapter);
 
     MainActivity() {
         model.add(
@@ -67,22 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void addData() {
-        final Dialog dialog = new Dialog(this, R.style.Theme_AppCompat_DayNight_DarkActionBar);
-        dialog.setContentView(R.layout.adddialog);
-
-        Button ok = dialog.findViewById(R.id.dialogButtonOK);
-        ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SliderTimePickerView startedAt = dialog.findViewById(R.id.startedAt);
-                SliderTimePickerView endedAt = dialog.findViewById(R.id.endedAt);
-                model.add(startedAt.getInstant(), endedAt.getInstant());
-                adapter.notifyItemInserted(0);
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
+        editDialog.run();
     }
 
     @Override
