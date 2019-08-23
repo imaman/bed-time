@@ -2,18 +2,22 @@ package com.github.imaman.bedtime;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class EditDialog {
     private final Model model;
     private final Context context;
     private final EntryAdapter adapter;
+    public RecordDao dao;
 
     public EditDialog(Model model, Context context, EntryAdapter adapter) {
         this.model = model;
@@ -36,6 +40,9 @@ public class EditDialog {
                 model.add(se);
                 adapter.notifyItemInserted(0);
                 dialog.dismiss();
+
+                new StoreTask(dao).execute(Record.of(se));
+
             }
         });
 
@@ -75,9 +82,35 @@ public class EditDialog {
                 int index = model.update(se);
                 adapter.notifyItemChanged(index);
                 dialog.dismiss();
+                new StoreTask(dao).execute(Record.of(se));
             }
         });
 
         dialog.show();
     }
+
+
+    private static class StoreTask extends AsyncTask<Record, Void, Void> {
+
+        private final WeakReference<RecordDao> weakDao;
+
+        public StoreTask(RecordDao dao) {
+            weakDao = new WeakReference<>(dao);
+        }
+
+        @Override
+        protected Void doInBackground(Record... records) {
+            RecordDao dao = weakDao.get();
+            if (dao == null) {
+                return null;
+            }
+
+            dao.insertAll(records);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {}
+    }
+
 }

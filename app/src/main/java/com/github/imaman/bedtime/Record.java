@@ -16,4 +16,13 @@ public class Record {
     public LocalTime from;
     public LocalTime to;
     public LocalDate date;
+
+    public static Record of(SleepEntry se) {
+        Record ret = new Record();
+        ret.id = se.id;
+        ret.from = se.from;
+        ret.to = se.to;
+        ret.date = se.date;
+        return ret;
+    }
 }

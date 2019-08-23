@@ -1,6 +1,5 @@
 package com.github.imaman.bedtime;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -14,7 +13,6 @@ import androidx.room.Room;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.time.LocalDate;
@@ -51,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bedtime-database")
                 .fallbackToDestructiveMigration()
                 .build();
-        new AgentAsyncTask(this, db).execute();
+        this.editDialog.dao = db.recordDao();
+        new LoadTask(this, db).execute();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -128,13 +127,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private static class AgentAsyncTask extends AsyncTask<Void, Void, List<Record>> {
+    private static class LoadTask extends AsyncTask<Void, Void, List<Record>> {
 
         private final WeakReference<AppDatabase> weakDb;
         //Prevent leak
         private final WeakReference<MainActivity> weakActivity;
 
-        public AgentAsyncTask(MainActivity activity, AppDatabase db) {
+        public LoadTask(MainActivity activity, AppDatabase db) {
             weakActivity = new WeakReference<>(activity);
             weakDb = new WeakReference<>(db);
         }
