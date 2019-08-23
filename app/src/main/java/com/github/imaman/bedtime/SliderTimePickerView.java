@@ -61,4 +61,14 @@ public class SliderTimePickerView extends RelativeLayout {
         LocalDateTime ret = sod.plusHours(hours()).plusMinutes(minutes());
         return ret;
     }
+
+    public void setInstant(LocalDateTime ldt) {
+        int h = ldt.getHour();
+        int m =  ldt.getMinute();
+
+        int minutes = h * 60 + m;
+
+        SeekBar sb = this.findViewById(R.id.seekBar);
+        sb.setProgress((minutes * MAX)/MINUTES_IN_DAY);
+    }
 }

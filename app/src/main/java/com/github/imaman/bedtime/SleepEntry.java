@@ -4,8 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class SleepEntry {
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    public final LocalDateTime from;
+    public final LocalDateTime to;
     private final Duration duration;
 
     public SleepEntry(LocalDateTime from, LocalDateTime to) {

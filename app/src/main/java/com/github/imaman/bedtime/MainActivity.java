@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         EntryAction onEdit = new EntryAction() {
             @Override
             public void run(SleepEntry se) {
-                Snackbar.make(fab, "IAH: " + se, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                editDialog.edit(se);
             }
         };
 
