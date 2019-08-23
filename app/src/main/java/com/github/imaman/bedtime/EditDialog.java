@@ -56,7 +56,7 @@ public class EditDialog {
                 SleepEntry newEntry = getSleepEntry(dialog);
                 se.copyFrom(newEntry);
                 int index = model.update(se);
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemChanged(index);
                 dialog.dismiss();
             }
         });

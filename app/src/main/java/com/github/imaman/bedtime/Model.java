@@ -11,8 +11,12 @@ public class Model {
         return entries.size();
     }
 
-    public SleepEntry get(int index) {
-        return entries.get(this.size() - index - 1);
+    public SleepEntry get(int externalIndex) {
+        return entries.get(toggleIndex(externalIndex));
+    }
+
+    private int toggleIndex(int index) {
+        return this.size() - index - 1;
     }
 
     public void add(SleepEntry se) {
@@ -26,7 +30,7 @@ public class Model {
         }
 
 //        entries.set(index, newOne);
-        return index;
+        return toggleIndex(index);
     }
 
     public void add(LocalDateTime from, LocalDateTime to) {
