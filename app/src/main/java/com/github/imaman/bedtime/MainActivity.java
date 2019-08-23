@@ -1,5 +1,7 @@
 package com.github.imaman.bedtime;
 
+import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -12,10 +14,12 @@ import androidx.room.Room;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,12 +48,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "bedtime-database").build();
-        dao = db.recordDao();
-        for (Record r : dao.getAll()) {
-//            model.add(r);
-        }
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "bedtime-database")
+                .fallbackToDestructiveMigration()
+                .build();
+        new AgentAsyncTask(this, db).execute();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -91,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    private void load(List<Record> records) {
+        model.load(records);
+        adapter.notifyDataSetChanged();
+    }
+
+
+
 
     private void addData() {
         editDialog.run();
@@ -116,5 +125,39 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private static class AgentAsyncTask extends AsyncTask<Void, Void, List<Record>> {
+
+        private final WeakReference<AppDatabase> weakDb;
+        //Prevent leak
+        private final WeakReference<MainActivity> weakActivity;
+
+        public AgentAsyncTask(MainActivity activity, AppDatabase db) {
+            weakActivity = new WeakReference<>(activity);
+            weakDb = new WeakReference<>(db);
+        }
+
+        @Override
+        protected List<Record> doInBackground(Void... params) {
+            AppDatabase db = weakDb.get();
+            if (db == null) {
+                return null;
+            }
+
+
+            return db.recordDao().getAll();
+        }
+
+        @Override
+        protected void onPostExecute(List<Record> records) {
+            MainActivity activity = weakActivity.get();
+            if(activity == null) {
+                return;
+            }
+
+            activity.load(records);
+        }
     }
 }

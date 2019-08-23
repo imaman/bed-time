@@ -8,6 +8,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class EditDialog {
     private final Model model;
@@ -50,7 +51,7 @@ public class EditDialog {
         LocalDate d = LocalDate.of(dp.getYear(), dp.getMonth() + 1, dp.getDayOfMonth());
 
 
-        return new SleepEntry(startedAt.getInstant(), endedAt.getInstant(), d);
+        return new SleepEntry(startedAt.getInstant(), endedAt.getInstant(), d, UUID.randomUUID().toString());
     }
 
     public void edit(final SleepEntry se) {

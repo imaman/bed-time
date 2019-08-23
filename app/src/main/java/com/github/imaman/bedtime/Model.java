@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Model {
     private final List<SleepEntry> entries = new ArrayList<>();
@@ -36,6 +37,14 @@ public class Model {
     }
 
     public void add(LocalTime from, LocalTime to, LocalDate date) {
-        add(new SleepEntry(from, to, date));
+        add(new SleepEntry(from, to, date, UUID.randomUUID().toString()));
+    }
+
+    public void load(List<Record> records) {
+        this.entries.clear();
+        for (Record r : records) {
+            SleepEntry se = new SleepEntry(r.from, r.to, r.date, r.id);
+            add(se);
+        }
     }
 }

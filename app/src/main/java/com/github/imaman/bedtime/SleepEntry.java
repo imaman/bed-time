@@ -6,15 +6,17 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class SleepEntry {
+    public final String id;
     public LocalTime from;
     public LocalTime to;
     private Duration duration;
     public LocalDate date;
 
-    public SleepEntry(LocalTime from, LocalTime to, LocalDate date) {
+    public SleepEntry(LocalTime from, LocalTime to, LocalDate date, String id) {
         this.from = from;
         this.to = to;
         this.date = date;
+        this.id = id;
         this.duration = Duration.between(from, to);
     }
 

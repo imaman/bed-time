@@ -1,21 +1,19 @@
 package com.github.imaman.bedtime;
 
-import androidx.room.ColumnInfo;
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 public class Record {
     @PrimaryKey
-    public int uid;
+    @NonNull
+    public String id;
 
-    @ColumnInfo(name = "from")
     public LocalTime from;
-
-    @ColumnInfo(name = "to")
     public LocalTime to;
-
-
+    public LocalDate date;
 }

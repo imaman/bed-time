@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class SliderTimePickerView extends RelativeLayout {
 
@@ -56,15 +57,13 @@ public class SliderTimePickerView extends RelativeLayout {
         return minutes % 60;
     }
 
-    public LocalDateTime getInstant() {
-        LocalDateTime sod = LocalDate.now().atStartOfDay();
-        LocalDateTime ret = sod.plusHours(hours()).plusMinutes(minutes());
-        return ret;
+    public LocalTime getInstant() {
+        return LocalTime.of(hours(), minutes());
     }
 
-    public void setInstant(LocalDateTime ldt) {
-        int h = ldt.getHour();
-        int m =  ldt.getMinute();
+    public void setInstant(LocalTime t) {
+        int h = t.getHour();
+        int m =  t.getMinute();
 
         int minutes = h * 60 + m;
 
