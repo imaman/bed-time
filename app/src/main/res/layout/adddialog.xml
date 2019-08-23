@@ -35,16 +35,25 @@
         android:layout_below="@id/until"
         />
 
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/endedAt"
+        />
+
     <Button
         android:id="@+id/dialogButtonOK"
-        android:layout_below="@id/endedAt"
+        android:layout_below="@id/datePicker"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="OK" />
+
     <Button
         android:id="@+id/dialogButtonCancel"
         android:layout_toRightOf="@id/dialogButtonOK"
-        android:layout_below="@id/endedAt"
+        android:layout_below="@id/datePicker"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"

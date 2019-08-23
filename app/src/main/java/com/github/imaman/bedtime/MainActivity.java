@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,13 +27,16 @@ public class MainActivity extends AppCompatActivity {
     MainActivity() {
         model.add(
             LocalDateTime.of(2019, 8, 3, 10, 15),
-            LocalDateTime.of(2019, 8, 3, 20, 15));
+            LocalDateTime.of(2019, 8, 3, 20, 15),
+            LocalDate.of(2019, 8, 3));
         model.add(
-                LocalDateTime.of(2019, 8, 3, 3, 15),
-                LocalDateTime.of(2019, 8, 3, 20, 15));
+            LocalDateTime.of(2019, 8, 3, 3, 15),
+            LocalDateTime.of(2019, 8, 3, 20, 15),
+            LocalDate.of(2019, 8, 2));
         model.add(
-                LocalDateTime.of(2019, 8, 3, 3, 15),
-                LocalDateTime.of(2019, 8, 3, 8, 15));
+            LocalDateTime.of(2019, 8, 3, 3, 15),
+            LocalDateTime.of(2019, 8, 3, 8, 15),
+            LocalDate.of(2019, 8, 1));
     }
 
     @Override

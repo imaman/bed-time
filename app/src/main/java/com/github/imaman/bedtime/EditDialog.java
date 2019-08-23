@@ -4,6 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TextView;
+
+import java.time.LocalDate;
 
 public class EditDialog {
     private final Model model;
@@ -19,6 +23,10 @@ public class EditDialog {
     public void run() {
         final Dialog dialog = new Dialog(context); //, R.style.Theme_AppCompat_DayNight_DarkActionBar);
         dialog.setContentView(R.layout.adddialog);
+
+        LocalDate d = LocalDate.now();
+        DatePicker dp = dialog.findViewById(R.id.datePicker);
+        dp.init(d.getYear(), d.getMonthValue() - 1, d.getDayOfMonth(), null);
 
         dialog.findViewById(R.id.dialogButtonOK).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +45,12 @@ public class EditDialog {
     private SleepEntry getSleepEntry(Dialog dialog) {
         SliderTimePickerView startedAt = dialog.findViewById(R.id.startedAt);
         SliderTimePickerView endedAt = dialog.findViewById(R.id.endedAt);
-        return new SleepEntry(startedAt.getInstant(), endedAt.getInstant());
+
+        DatePicker dp = dialog.findViewById(R.id.datePicker);
+        LocalDate d = LocalDate.of(dp.getYear(), dp.getMonth() + 1, dp.getDayOfMonth());
+
+
+        return new SleepEntry(startedAt.getInstant(), endedAt.getInstant(), d);
     }
 
     public void edit(final SleepEntry se) {
@@ -49,6 +62,9 @@ public class EditDialog {
 
         SliderTimePickerView endedAt = dialog.findViewById(R.id.endedAt);
         endedAt.setInstant(se.to);
+
+        DatePicker dp = dialog.findViewById(R.id.datePicker);
+        dp.init(se.date.getYear(), se.date.getMonthValue() - 1, se.date.getDayOfMonth(), null);
 
         dialog.findViewById(R.id.dialogButtonOK).setOnClickListener(new View.OnClickListener() {
             @Override
