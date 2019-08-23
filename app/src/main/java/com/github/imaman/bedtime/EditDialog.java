@@ -23,9 +23,8 @@ public class EditDialog {
         dialog.findViewById(R.id.dialogButtonOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SliderTimePickerView startedAt = dialog.findViewById(R.id.startedAt);
-                SliderTimePickerView endedAt = dialog.findViewById(R.id.endedAt);
-                model.add(startedAt.getInstant(), endedAt.getInstant());
+                SleepEntry se = getSleepEntry(dialog);
+                model.add(se);
                 adapter.notifyItemInserted(0);
                 dialog.dismiss();
             }
@@ -35,7 +34,13 @@ public class EditDialog {
 
     }
 
-    public void edit(SleepEntry se) {
+    private SleepEntry getSleepEntry(Dialog dialog) {
+        SliderTimePickerView startedAt = dialog.findViewById(R.id.startedAt);
+        SliderTimePickerView endedAt = dialog.findViewById(R.id.endedAt);
+        return new SleepEntry(startedAt.getInstant(), endedAt.getInstant());
+    }
+
+    public void edit(final SleepEntry se) {
         final Dialog dialog = new Dialog(context); //, R.style.Theme_AppCompat_DayNight_DarkActionBar);
         dialog.setContentView(R.layout.adddialog);
 
@@ -48,11 +53,10 @@ public class EditDialog {
         dialog.findViewById(R.id.dialogButtonOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("AAA", "clicked");
-//                SliderTimePickerView startedAt = dialog.findViewById(R.id.startedAt);
-//                SliderTimePickerView endedAt = dialog.findViewById(R.id.endedAt);
-//                model.add(startedAt.getInstant(), endedAt.getInstant());
-//                adapter.notifyItemInserted(0);
+                SleepEntry newEntry = getSleepEntry(dialog);
+                se.copyFrom(newEntry);
+                int index = model.update(se);
+                adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });

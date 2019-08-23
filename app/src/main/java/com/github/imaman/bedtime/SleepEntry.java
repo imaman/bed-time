@@ -4,9 +4,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class SleepEntry {
-    public final LocalDateTime from;
-    public final LocalDateTime to;
-    private final Duration duration;
+    public LocalDateTime from;
+    public LocalDateTime to;
+    private Duration duration;
 
     public SleepEntry(LocalDateTime from, LocalDateTime to) {
         this.from = from;
@@ -20,5 +20,11 @@ public class SleepEntry {
         long m = duration.toMinutes() % 60;
 
         return String.format("%dh%dm", h, m);
+    }
+
+    public void copyFrom(SleepEntry that) {
+        this.from = that.from;
+        this.to = that.to;
+        this.duration = that.duration;
     }
 }

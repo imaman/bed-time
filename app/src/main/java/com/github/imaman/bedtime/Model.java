@@ -15,8 +15,21 @@ public class Model {
         return entries.get(this.size() - index - 1);
     }
 
-    public void add(LocalDateTime from, LocalDateTime to) {
-        SleepEntry se = new SleepEntry(from, to);
+    public void add(SleepEntry se) {
         entries.add(se);
+    }
+
+    public int update(SleepEntry se) {
+        int index = this.entries.indexOf(se);
+        if (index < 0) {
+            throw new RuntimeException("Could not find an entry (" + se + ")");
+        }
+
+//        entries.set(index, newOne);
+        return index;
+    }
+
+    public void add(LocalDateTime from, LocalDateTime to) {
+        add(new SleepEntry(from, to));
     }
 }
