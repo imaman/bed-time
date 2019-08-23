@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingTop="3dp"
-    android:background="#FFFFFF"
     android:paddingBottom="3dp"
     android:layout_marginBottom="2dp"
     >
@@ -31,3 +30,6 @@
         android:text="xx_yy"/>
 
 </RelativeLayout>
+
+
+    <!--android:background="#FFFFFF"-->

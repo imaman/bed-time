@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
+
 public class EntryView extends LinearLayout {
 
     private final EntryAction onEdit;
@@ -41,8 +44,14 @@ public class EntryView extends LinearLayout {
         textView.setText(se.toString());
 
         TextView day = findViewById(R.id.day);
-        day.setText(se.date.getDayOfWeek().name());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE");
+        day.setText(formatter.format(se.date.getDayOfWeek()).toUpperCase());
         TextView date = findViewById(R.id.date);
         date.setText(se.date.toString());
+
+
+        boolean isWeekend = se.date.getDayOfWeek() == DayOfWeek.FRIDAY || se.date.getDayOfWeek() == DayOfWeek.SATURDAY;
+        this.setBackgroundResource(isWeekend ? R.color.entryWeekend: R.color.entryWorkday);
     }
 }
