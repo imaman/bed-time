@@ -39,5 +39,10 @@ public class EntryView extends LinearLayout {
         this.sleepEntry = se;
         TextView textView = findViewById(R.id.entryText);
         textView.setText(se.toString());
+
+        TextView day = findViewById(R.id.day);
+        day.setText(se.date.getDayOfWeek().name());
+        TextView date = findViewById(R.id.date);
+        date.setText(se.date.toString());
     }
 }

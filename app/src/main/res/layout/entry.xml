@@ -9,11 +9,25 @@
     >
 
     <TextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MON"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/day"
+        android:paddingLeft="30px"
+        android:text="2019-08-01"/>
+
+    <TextView
         android:id="@+id/entryText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
+        android:layout_below="@id/day"
         android:text="xx_yy"/>
 
 </RelativeLayout>
