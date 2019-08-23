@@ -1,8 +1,8 @@
 package com.github.imaman.bedtime;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private final Model model = new Model();
+
     private EntryAdapter adapter = new EntryAdapter(model);
     private final EditDialog editDialog = new EditDialog(model, this, adapter);
 
@@ -42,7 +42,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        final FloatingActionButton fab = findViewById(R.id.fab);
+
+
+        EntryAction onEdit = new EntryAction() {
+            @Override
+            public void run(SleepEntry se) {
+                Snackbar.make(fab, "IAH: " + se, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        };
+
+        this.adapter.setOnEdit(onEdit);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

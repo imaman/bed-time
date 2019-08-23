@@ -1,8 +1,5 @@
 package com.github.imaman.bedtime;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,21 +7,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class EntryAdapter extends RecyclerView.Adapter<EntryViewHolder> {
     private final Model model;
+    private EntryAction onEdit;
 
     EntryAdapter(Model model) {
         this.model= model;
     }
 
+
+    void setOnEdit(EntryAction ea) {
+        this.onEdit = ea;
+    }
+
     @NonNull
     @Override
     public EntryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = new EntryView(parent.getContext());
-        v.setOnClickListener(new View.OnClickListener() {
+        EntryView v = new EntryView(parent.getContext(), new EntryAction() {
             @Override
-            public void onClick(View view) {
-                Log.d("APPACT", "click");
+            public void run(SleepEntry se) {
+                onEdit.run(se);
             }
         });
+//        v.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("APPACT", "click");
+//            }
+//        });
         return new EntryViewHolder(v);
     }
 

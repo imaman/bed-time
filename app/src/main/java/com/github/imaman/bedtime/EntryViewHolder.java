@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class EntryViewHolder extends RecyclerView.ViewHolder {
 
-    public EntryViewHolder(@NonNull View itemView) {
+    public EntryViewHolder(@NonNull EntryView itemView) {
         super(itemView);
     }
 
+    private EntryView getEntryView() {
+        return (EntryView) itemView;
+    }
+
     public void assign(SleepEntry se) {
-        TextView textView = itemView.findViewById(R.id.entryText);
-        textView.setText(se.toString());
+        getEntryView().assign(se);
     }
 }
