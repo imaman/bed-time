@@ -2,6 +2,7 @@ package com.github.imaman.bedtime;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class Model {
         return toggleIndex(index);
     }
 
-    public void add(LocalDateTime from, LocalDateTime to, LocalDate date) {
+    public void add(LocalTime from, LocalTime to, LocalDate date) {
         add(new SleepEntry(from, to, date));
     }
 }

@@ -2,12 +2,12 @@ package com.github.imaman.bedtime;
 
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.view.View;
 import android.view.Menu;
@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,24 +24,33 @@ public class MainActivity extends AppCompatActivity {
 
     private EntryAdapter adapter = new EntryAdapter(model);
     private final EditDialog editDialog = new EditDialog(model, this, adapter);
+    private RecordDao dao;
 
     MainActivity() {
         model.add(
-            LocalDateTime.of(2019, 8, 3, 10, 15),
-            LocalDateTime.of(2019, 8, 3, 20, 15),
+            LocalTime.of(10, 15),
+            LocalTime.of(20, 15),
             LocalDate.of(2019, 8, 3));
         model.add(
-            LocalDateTime.of(2019, 8, 3, 3, 15),
-            LocalDateTime.of(2019, 8, 3, 20, 15),
+            LocalTime.of(3, 15),
+            LocalTime.of(20, 15),
             LocalDate.of(2019, 8, 2));
         model.add(
-            LocalDateTime.of(2019, 8, 3, 3, 15),
-            LocalDateTime.of(2019, 8, 3, 8, 15),
+            LocalTime.of(3, 15),
+            LocalTime.of(8, 15),
             LocalDate.of(2019, 8, 1));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "bedtime-database").build();
+        dao = db.recordDao();
+        for (Record r : dao.getAll()) {
+//            model.add(r);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);

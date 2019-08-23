@@ -3,14 +3,15 @@ package com.github.imaman.bedtime;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class SleepEntry {
-    public LocalDateTime from;
-    public LocalDateTime to;
+    public LocalTime from;
+    public LocalTime to;
     private Duration duration;
     public LocalDate date;
 
-    public SleepEntry(LocalDateTime from, LocalDateTime to, LocalDate date) {
+    public SleepEntry(LocalTime from, LocalTime to, LocalDate date) {
         this.from = from;
         this.to = to;
         this.date = date;
